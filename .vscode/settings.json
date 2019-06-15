@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/alunos/.local/share/virtualenvs/simulation-xINDaJEo/bin/python",
+    "python.pythonPath": ".venv/bin/python",
     "python.jediEnabled": false,
     "python.linting.pylintUseMinimalCheckers": false,
     "python.linting.flake8Enabled": true,

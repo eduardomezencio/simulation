@@ -7,6 +7,7 @@ verify_ssl = true
 pydocstyle = "*"
 flake8 = "*"
 ipython = "*"
+pylint = "*"
 
 [packages]
 

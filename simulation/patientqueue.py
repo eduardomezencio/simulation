@@ -9,6 +9,7 @@ class PatientQueue:
         self.queues = tuple([] for _ in CONFIG.p_que)
 
     def push(self, patient: Patient):
+        patient.current_event = None
         self.queues[patient.priority.value - 1].append(patient)
         self._len += 1
 
@@ -25,3 +26,6 @@ class PatientQueue:
 
     def __len__(self):
         return self._len
+
+    def __bool__(self):
+        return bool(self._len)

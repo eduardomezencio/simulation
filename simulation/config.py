@@ -34,7 +34,7 @@ class Config:
             self.__dict__[key] = int(data[key][0])
         for key in ('t_che', 't_cad', 't_tri', 't_ate', 't_exa'):
             self.__dict__[key] = distribution_factory(
-                data[0], *(float(s) for s in data[1:4]))
+                data[key][0], *(float(s) for s in data[key][1:4]))
 
 
 INSTANCE = Config()

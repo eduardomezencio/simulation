@@ -4,10 +4,13 @@ from dataclasses import dataclass, field
 from enum import Enum
 from itertools import accumulate
 from random import randrange, random
+from typing import TYPE_CHECKING
 
 from simulation.config import INSTANCE as CONFIG
-from simulation.event import Event
 from simulation.id import generate_id
+
+if TYPE_CHECKING:
+    from simulation.event import Event
 
 
 class Priority(Enum):
@@ -18,12 +21,13 @@ class Priority(Enum):
     VERY_URGENT = 4
     EMERGENCY = 5
 
-    def weight(self, table=CONFIG.p_pri) -> int:
-        return table[self.value - 1]
+    @property
+    def weight(self) -> int:
+        return CONFIG.p_pri[self.value - 1]
 
     @staticmethod
     def get_random() -> Priority:
-        acc = accumulate(p.weight() for p in Priority)
+        acc = list(accumulate(p.weight for p in Priority))
         total = acc[-1]
         rand = randrange(total)
         for index, value in enumerate(acc):
@@ -42,5 +46,19 @@ class Patient:
     priority: Priority = field(default_factory=Priority.get_random)
     need_exams: bool = field(default_factory=get_random_need_exams)
     total_waiting_time: float = 0.0
-    current_event: Event = None
-    last_event: Event = None
+    _current_event: Event = field(init=False, default=None)
+    _last_event: Event = field(init=False, default=None)
+
+    @property
+    def current_event(self):
+        return self._current_event
+
+    @current_event.setter
+    def current_event(self, value):
+        if self._current_event is not None:
+            self._last_event = self._current_event
+        self._current_event = value
+
+    @property
+    def last_event(self):
+        return self._last_event
