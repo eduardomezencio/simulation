@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import Enum
 from itertools import accumulate
-from random import randrange, random
+from random import random
 from typing import TYPE_CHECKING
 
 from simulation.config import INSTANCE as CONFIG
@@ -29,7 +29,7 @@ class Priority(Enum):
     def get_random() -> Priority:
         acc = list(accumulate(p.weight for p in Priority))
         total = acc[-1]
-        rand = randrange(total)
+        rand = random() * total
         for index, value in enumerate(acc):
             if rand < value:
                 return Priority(index + 1)
@@ -39,7 +39,7 @@ def get_random_need_exams():
     return random() < CONFIG.p_pro
 
 
-@dataclass
+@dataclass(eq=False)
 class Patient:
 
     id: int = field(default_factory=generate_id)
@@ -62,3 +62,7 @@ class Patient:
     @property
     def last_event(self):
         return self._last_event
+
+    def __str__(self):
+        return (f'{type(self).__name__}({self.id}, {self.priority.name}'
+                f'{", exams" if self.need_exams else ""})')

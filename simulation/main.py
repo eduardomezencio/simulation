@@ -1,5 +1,6 @@
 from simulation.config import INSTANCE as CONFIG
 from simulation.simulation import INSTANCE as SIMULATION
+from simulation.stats import Stats
 
 
 def main():
@@ -7,10 +8,11 @@ def main():
         CONFIG.parse(file)
 
     from simulation.event import ArrivalEndEvent
-    from simulation.patient import Patient
 
-    SIMULATION.reset(lambda: ArrivalEndEvent(patient=Patient()))
+    SIMULATION.reset(lambda: ArrivalEndEvent(patient=SIMULATION.new_patient()))
     SIMULATION.run()
+    print('\n'.join(map(str, SIMULATION.event_log)))
+    print(Stats.calculate(SIMULATION))
 
 
 if __name__ == '__main__':

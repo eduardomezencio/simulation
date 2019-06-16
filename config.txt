@@ -1,91 +1,33 @@
-############################################################
-#                                                          #
-# Cenario 01 - Pronto Socorro IF                           #
-#                                                          #
-# Data      Autores      Descricao                         #
-# ========  ============ ================================  #
-# 16-05-19  PS - IS 19   Inicial. Descricao do cenario     #
-#                                                          #
-############################################################
+# Cenario 01 - Pronto Socorro IF
 
-# Linhas iniciadas com caracter '#' indicam comentario. Se
-# iniciou com linha de comentario, le e ignora tudo ate'
-# encontrar '\n'
+## Configuracoes Gerais do Cenarios ###########################################
 
-############################################################
-#                                                          #
-# Configuracoes Gerais do Cenarios                         #
-#                                                          #
-############################################################
+# Tempo maximo de simulacao, em minutos.
+T TTS 1440   # 1 dia
+# T TTS 10080  # 1 semana
+# T TTS 43200  # 1 mes
 
-# Tempo maximo de simulacao, em minutos. O valor abaixo
-# corresponde a x dias * x horas * x minutos.
-T TTS 86400
+## Paciente ###################################################################
 
-############################################################
-#                                                          #
-# Paciente                                                 #
-#                                                          #
-############################################################
+P PRO 0.5           # Probabilidade da necessidade de medicação/exames.
+P PRI 1 1 1 1 1     # Chance de chegada de cada prioridade.
+P QUE 1 2 4 8 16    # Chance de tirar cada prioridade da fila.
 
-# Probabilidade da necessidade de medicação/exames.
-P PRO 0.5
+## Funcionários ###############################################################
 
-# Chance de chegada de cada prioridade.
-P PRI 20 20 20 20 20
+Q MED 2   # Quantidade de médicos.
+Q ENF 4   # Quantidade de enfermeiras.
+Q ATD 2   # Quantidade de atendentes.
 
-# Chance de tirar cada prioridade da fila.
-P QUE 1 2 4 8 16
+## Tempo das atividades #######################################################
 
-############################################################
-#                                                          #
-# Funcionários                                             #
-#                                                          #
-############################################################
+# Distribuições possíveis: EXP(Exponencial), NOR(Normal), TRI(Triangular),
+# UNI(Uniforme), BET(Beta), WEI(Weibull), GAM(Gama), LOG(Log-Normal),
+# PAR(Pareto)
+# Os parâmetros não utilizados devem ser iguais a zero.
 
-# Quantidade de médicos.
-Q MED 2
-
-# Quantidade de enfermeiras.
-Q ENF 4
-
-# Quantidade de atendentes.
-Q ATD 2
-
-############################################################
-#                                                          #
-# Tempo das atividades                                     #
-#                                                          #
-############################################################
-
-# Distribuições possíveis:
-# EXP: Exponencial
-# NOR: Normal
-# TRI: Triangular
-# UNI: Uniforme
-# BET: Beta
-# WEI: Weibull
-# CAU: Cauchy
-# CHI: Chi-Quadrado
-# ERL: Erlang
-# GAM: Gama
-# LOG: Log-Normal
-# PAR: Pareto
-# STU: t-Student
-#
-# OBS.: Os parâmetros não utilizados devem ser iguais a zero.
-#
-# Tempo de chegada do paciente.
-T CHE EXP 0.1 0 0
-
-# Tempo de cadastro.
-T CAD TRI 1 2 5
-
-# Tempo de triagem.
-T TRI TRI 3 5 7
-
-# Tempo de atendimento.
-T ATE TRI 10 15 20
-
-# Tempo de exames/medicamentos.
-T EXA TRI 10 15 22
+T CHE EXP 0.1 0 0    # Distribuição do tempo de chegada do paciente.
+T CAD TRI 1 2 5      # Distribuição do tempo de cadastro.
+T TRI TRI 3 5 7      # Distribuição do tempo de triagem.
+T ATE TRI 10 15 20   # Distribuição do tempo de atendimento.
+T EXA TRI 10 15 22   # Distribuição do tempo de exames/medicamentos.
