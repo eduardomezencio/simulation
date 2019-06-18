@@ -3,21 +3,21 @@
 ## Configuracoes Gerais do Cenarios ###########################################
 
 # Tempo maximo de simulacao, em minutos.
-T TTS 1440   # 1 dia
-# T TTS 10080  # 1 semana
-# T TTS 43200  # 1 mes
+T TTS 1440     # 1 dia
+# T TTS 10080    # 1 semana
+# T TTS 43200    # 1 mes
 
 ## Paciente ###################################################################
 
-P PRO 0.5           # Probabilidade da necessidade de medicação/exames.
-P PRI 1 1 1 1 1     # Chance de chegada de cada prioridade.
-P QUE 1 2 4 8 16    # Chance de tirar cada prioridade da fila.
+P PRO 0.4               # Probabilidade da necessidade de medicação/exames.
+P PRI 10 25 30 15 20    # Chance de chegada de cada prioridade.
+P QUE 1 2 4 8 16        # Chance de tirar cada prioridade da fila.
 
 ## Funcionários ###############################################################
 
-Q MED 2   # Quantidade de médicos.
-Q ENF 4   # Quantidade de enfermeiras.
-Q ATD 2   # Quantidade de atendentes.
+Q MED 2    # Quantidade de médicos.
+Q ENF 4    # Quantidade de enfermeiras.
+Q ATD 1    # Quantidade de atendentes.
 
 ## Tempo das atividades #######################################################
 
@@ -26,8 +26,8 @@ Q ATD 2   # Quantidade de atendentes.
 # PAR(Pareto)
 # Os parâmetros não utilizados devem ser iguais a zero.
 
-T CHE EXP 0.1 0 0    # Distribuição do tempo de chegada do paciente.
-T CAD TRI 1 2 5      # Distribuição do tempo de cadastro.
-T TRI TRI 3 5 7      # Distribuição do tempo de triagem.
-T ATE TRI 10 15 20   # Distribuição do tempo de atendimento.
-T EXA TRI 10 15 22   # Distribuição do tempo de exames/medicamentos.
+T CHE EXP 0.1 0 0        # Distribuição do tempo de chegada do paciente.
+T CAD TRI 2 4 10         # Distribuição do tempo de cadastro.
+T TRI NOR 5.25 1.21 0    # Distribuição do tempo de triagem.
+T ATE NOR 8.45 3.23 0    # Distribuição do tempo de atendimento.
+T EXA NOR 28.3 5.63 0    # Distribuição do tempo de exames/medicamentos.

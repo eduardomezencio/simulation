@@ -40,10 +40,10 @@ class PatientQueue:
         self._count += 1
 
     def pop(self, time: float) -> Patient:
-        if all(not q for q in self.queues):
+        weights = [p for p, q in zip(CONFIG.p_que, self.queues) if q]
+        values = [p for p, q in zip(Priority, self.queues) if q]
+        if not weights:
             raise Exception('Empty queue')
-        weights = CONFIG.p_que
-        values = [p for p in Priority]
         patient = None
         while patient is None:
             selected = roulette(weights, values).value - 1

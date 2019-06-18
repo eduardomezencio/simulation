@@ -21,7 +21,6 @@ class Config:
     def parse(self, file: TextIO):
         data: Dict[str, List[str]] = {}
         for line in file:
-            line: str
             line = line.split('#')[0].split()
             if len(line) >= 3:
                 data['_'.join(s.lower() for s in line[:2])] = line[2:]

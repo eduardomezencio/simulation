@@ -14,11 +14,11 @@ if TYPE_CHECKING:
 class Stats:
     total_simulation_time: float
     total_patients: int
-    patients_by_priority: Dict[str, int]
+    patients_by_priority: Dict[int, int]
     total_workers: int
     workers_by_type: Dict[str, int]
     mean_waiting_time: float
-    mean_waiting_time_by_priority: Dict[Priority, float]
+    mean_waiting_time_by_priority: Dict[int, float]
     mean_waiting_time_by_queue: Dict[str, float]
     mean_idle_time: float
     mean_idle_time_by_type: Dict[str, float]
@@ -35,14 +35,14 @@ class Stats:
         mean_waiting_time = 0.0
         mean_waiting_time_by_priority = defaultdict(float)
         for patient in simulation.patients:
-            patients_by_priority[patient.priority.name] += 1
+            patients_by_priority[patient.priority.value] += 1
             mean_waiting_time += patient.total_waiting_time
-            mean_waiting_time_by_priority[patient.priority] += \
+            mean_waiting_time_by_priority[patient.priority.value] += \
                 patient.total_waiting_time
         mean_waiting_time /= total_patients
         for priority in Priority:
-            mean_waiting_time_by_priority[priority] /= \
-                patients_by_priority[priority.name]
+            mean_waiting_time_by_priority[priority.value] /= \
+                patients_by_priority[priority.value]
 
         total_workers = len(simulation.workers)
         workers_by_type = defaultdict(int)
@@ -78,5 +78,11 @@ class Stats:
                      mean_queue_len_by_queue)
 
     def __str__(self):
-        return '\n'.join(f'\n{k}:\n    {str(v)}'
+        def format_(value):
+            if isinstance(value, dict):
+                return (f'{k}: {value[k]}' for k in sorted(value.keys()))
+            return (str(value),)
+
+        indent = '\n    '
+        return '\n'.join(f'\n{k}:{indent}{indent.join(format_(v))}'
                          for k, v in self.__dict__.items())
