@@ -3,8 +3,8 @@
 ## Configuracoes Gerais do Cenarios ###########################################
 
 # Tempo maximo de simulacao, em minutos.
-T TTS 1440     # 1 dia
-# T TTS 10080    # 1 semana
+# T TTS 1440     # 1 dia
+T TTS 10080    # 1 semana
 # T TTS 43200    # 1 mes
 
 ## Paciente ###################################################################

@@ -1,10 +1,10 @@
-# Cenario 01 - Pronto Socorro IF
+# Cenario 03 - Pronto Socorro IF
 
 ## Configuracoes Gerais do Cenarios ###########################################
 
 # Tempo maximo de simulacao, em minutos.
-T TTS 1440     # 1 dia
-# T TTS 10080    # 1 semana
+# T TTS 1440     # 1 dia
+T TTS 10080    # 1 semana
 # T TTS 43200    # 1 mes
 
 ## Paciente ###################################################################
@@ -15,8 +15,8 @@ P QUE 1 2 4 8 16        # Chance de tirar cada prioridade da fila.
 
 ## Funcionários ###############################################################
 
-Q MED 2    # Quantidade de médicos.
-Q ENF 4    # Quantidade de enfermeiras.
+Q MED 1    # Quantidade de médicos.
+Q ENF 2    # Quantidade de enfermeiras.
 Q ATD 1    # Quantidade de atendentes.
 
 ## Tempo das atividades #######################################################

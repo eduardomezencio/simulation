@@ -45,6 +45,7 @@ class Patient:
     id: int = field(default_factory=generate_id)
     priority: Priority = field(default_factory=Priority.get_random)
     need_exams: bool = field(default_factory=get_random_need_exams)
+    max_waiting_time: float = 0.0
     total_waiting_time: float = 0.0
     _current_event: Event = field(init=False, default=None)
     _last_event: Event = field(init=False, default=None)

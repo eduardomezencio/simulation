@@ -13,19 +13,24 @@ class PatientQueue:
         self._max_len = 0
         self._len_time = 0.0
         self._entered = {}
+        self._max_waiting_time = 0.0
         self._total_waiting_time = 0.0
         self.queues = tuple([] for _ in CONFIG.p_que)
 
     @property
-    def total_patient_count(self):
+    def total_patient_count(self) -> int:
         return self._count
 
     @property
-    def total_waiting_time(self):
+    def max_waiting_time(self) -> float:
+        return self._max_waiting_time
+
+    @property
+    def total_waiting_time(self) -> float:
         return self._total_waiting_time
 
     @property
-    def max_len(self):
+    def max_len(self) -> int:
         return self._max_len
 
     def push(self, patient: Patient, time: float):
@@ -50,7 +55,12 @@ class PatientQueue:
             if self.queues[selected]:
                 self._len -= 1
                 patient = self.queues[selected].pop()
-        self._total_waiting_time += time - self._entered[patient]
+        waiting = time - self._entered[patient]
+        if self._max_waiting_time < waiting:
+            self._max_waiting_time = waiting
+        self._total_waiting_time += waiting
+        if patient.max_waiting_time < waiting:
+            patient.max_waiting_time = waiting
         del self._entered[patient]
         return patient
 
